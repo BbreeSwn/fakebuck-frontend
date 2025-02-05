@@ -10,13 +10,14 @@ const colorMap = {
 }
 
 const widthMap = {
-    full: 'w-full'
+    full: 'w-full',
+    50: 'w-50'
 }
 
-export default function Button({ children, bg = 'blue' ,color = 'white',width}) {
+export default function Button({ children, bg = 'blue' ,color = 'white',width , onClick}) {
   return (
     <div>
-      <button className={`px-3 py-1.5 rounded-md ${bgMap[bg]} ${colorMap[color]} ${widthMap[width]}`}>
+      <button className={`px-3 py-1.5 rounded-md ${bgMap[bg]} ${colorMap[color]} ${widthMap[width]}`} onClick={onClick}>
         {children}
       </button>
     </div>
