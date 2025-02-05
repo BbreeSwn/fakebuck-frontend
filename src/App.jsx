@@ -1,7 +1,9 @@
+import Router from "./routes";
+
 function App() {
   return (
-    <div className="text-red-600 bg-amber-400">
-      Hello Project
+    <div>
+      <Router />
     </div>
   );
 }
