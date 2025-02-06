@@ -12,7 +12,7 @@ export default function LoginForm() {
           <Input
             placeholder="Password"
             type="password"
-            error="test error message"
+          
           />
         </div>
         <div>
