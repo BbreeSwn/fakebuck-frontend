@@ -22,8 +22,17 @@ const initialInput = {
   confirmPassword: "",
 };
 
+const initialInputError = {
+  firstName: "",
+  lastName: "",
+  emailOrMobile: "",
+  password: "",
+  confirmPassword: "",
+};
+
 export default function RegisterForm() {
   const [input, setInput] = useState(initialInput);
+  const [inputError, setInputError] = useState(initialInputError);
 
   const handleChangInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -31,9 +40,9 @@ export default function RegisterForm() {
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
-
     // เรียกใช้  validate ตอนจะ submit form และส่งค่าใน input ไป validate ใน Fn
-    validateRegister(input)
+    const error = validateRegister(input);
+    setInputError(error);
   };
   return (
     <form onSubmit={handleSubmitForm}>
@@ -44,6 +53,7 @@ export default function RegisterForm() {
             value={input.firstName}
             onChange={handleChangInput}
             name="firstName"
+            error={inputError.firstName}
           />
         </div>
         <div>
@@ -52,6 +62,7 @@ export default function RegisterForm() {
             value={input.lastName}
             onChange={handleChangInput}
             name="lastName"
+            error={inputError.lastName}
           />
         </div>
         <div className="col-span-2">
@@ -60,6 +71,7 @@ export default function RegisterForm() {
             value={input.emailOrMobile}
             onChange={handleChangInput}
             name="emailOrMobile"
+            error={inputError.emailOrMobile}
           />
         </div>
         <div className="col-span-2">
@@ -69,6 +81,7 @@ export default function RegisterForm() {
             value={input.password}
             onChange={handleChangInput}
             name="password"
+            error={inputError.password}
           />
         </div>
         <div className="col-span-2">
@@ -78,6 +91,7 @@ export default function RegisterForm() {
             value={input.confirmPassword}
             onChange={handleChangInput}
             name="confirmPassword"
+            error={inputError.confirmPassword}
           />
         </div>
         <div className="col-span-2 text-center">

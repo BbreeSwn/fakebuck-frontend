@@ -26,7 +26,7 @@ export default function Modal({ width = 30, title, children, open, onClose }) {
                 <div className="flex justify-between items-center p-4 border-b border-gray-300">
                   <button className="invisible">&#10005;</button>
                   <h5 className="text-2xl font-medium">{title}</h5>
-                  <button onClick={onClose}>&#10005;</button>
+                  <button onClick={onClose} className="cursor-pointer">&#10005;</button>
                 </div>
                 <div className="p-4">{children}</div>
               </div>
