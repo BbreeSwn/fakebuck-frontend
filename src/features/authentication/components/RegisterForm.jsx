@@ -42,7 +42,9 @@ export default function RegisterForm() {
     e.preventDefault();
     // เรียกใช้  validate ตอนจะ submit form และส่งค่าใน input ไป validate ใน Fn
     const error = validateRegister(input);
-    setInputError(error);
+    if(error){
+      return setInputError(error);
+    }
   };
   return (
     <form onSubmit={handleSubmitForm}>
