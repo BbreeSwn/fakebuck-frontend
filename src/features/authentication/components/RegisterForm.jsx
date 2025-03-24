@@ -4,6 +4,7 @@ import Input from "../../../components/Input";
 import validateRegister from "../validators/validate-register";
 import authAPI from "../../../apis/auth";
 import { AxiosError } from "axios";
+import { toast } from "react-toastify";
 
 /*
 *ต้องการให้ค่าใน Input มี key เป็นอะไรบ้าง
@@ -52,6 +53,7 @@ export default function RegisterForm({onSuccess}) {
 
       await authAPI.register(input);
       onSuccess()
+      toast.success('Registered successfully. please log-in to continue.')
     } catch (err) {
       console.log(err);
       //* check ว่าเป็น err จาก Axios  หรือเปล่า ถ้าเป็น err from axios  ค่อย throw err ออกไป
