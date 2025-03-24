@@ -2,6 +2,8 @@ import { useState } from "react";
 import Button from "../../../components/Button";
 import Input from "../../../components/Input";
 import validateRegister from "../validators/validate-register";
+import authAPI from "../../../apis/auth";
+import { AxiosError } from "axios";
 
 /*
 *ต้องการให้ค่าใน Input มี key เป็นอะไรบ้าง
@@ -30,7 +32,7 @@ const initialInputError = {
   confirmPassword: "",
 };
 
-export default function RegisterForm() {
+export default function RegisterForm({onSuccess}) {
   const [input, setInput] = useState(initialInput);
   const [inputError, setInputError] = useState(initialInputError);
 
@@ -38,12 +40,28 @@ export default function RegisterForm() {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
-  const handleSubmitForm = (e) => {
-    e.preventDefault();
-    // เรียกใช้  validate ตอนจะ submit form และส่งค่าใน input ไป validate ใน Fn
-    const error = validateRegister(input);
-    if(error){
-      return setInputError(error);
+  const handleSubmitForm = async (e) => {
+    try {
+      e.preventDefault();
+      // เรียกใช้  validate ตอนจะ submit form และส่งค่าใน input ไป validate ใน Fn
+      const error = validateRegister(input);
+      if (error) {
+        return setInputError(error);
+      }
+      setInputError({ ...initialInput });
+
+      await authAPI.register(input);
+      onSuccess()
+    } catch (err) {
+      console.log(err);
+      //* check ว่าเป็น err จาก Axios  หรือเปล่า ถ้าเป็น err from axios  ค่อย throw err ออกไป
+      if (err instanceof AxiosError) {
+        if (err.response.data.field === "emailOrMobile")
+          setInputError((prev) => ({
+            ...prev,
+            emailOrMobile: "email or mobile already in use",
+          }));
+      }
     }
   };
   return (
