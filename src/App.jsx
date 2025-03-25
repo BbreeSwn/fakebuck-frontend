@@ -1,14 +1,17 @@
+import AuthContextProvider from "./context/authContext";
 import Router from "./routes";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Slide } from "react-toastify";
 
 function App() {
   return (
-    <div>
+    <AuthContextProvider>
       <Router />
       <ToastContainer
-      position="bottom-right"
-      autoClose={3000} />
-    </div>
+        position="bottom-right"
+        autoClose={3000}
+        transition={Slide}
+      />
+    </AuthContextProvider>
   );
 }
 
